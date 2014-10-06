@@ -19,6 +19,10 @@ func ConnectToURL(s string) (c *sqlx.DB, err error) {
 		return
 	}
 
+	if databaseUrl.Scheme == "" {
+		return c, fmt.Errorf("No scheme specified in %v", s)
+	}
+
 	auth := ""
 
 	if databaseUrl.User != nil {
