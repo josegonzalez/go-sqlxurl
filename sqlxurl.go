@@ -27,17 +27,17 @@ func ConnectToURL(s string) (c *sqlx.DB, err error) {
 
 	if databaseUrl.User != nil {
 		auth = databaseUrl.User.String()
-		auth = fmt.Sprintf("%s@", auth)
+		auth = fmt.Sprintf("%v@", auth)
 	}
 
 	db := ""
 
 	if len(databaseUrl.Path) > 1 {
 		db = strings.TrimPrefix(databaseUrl.Path, "/")
-		db = fmt.Sprintf("/%s", db)
+		db = fmt.Sprintf("/%v", db)
 	}
 
-	dbDsn := fmt.Sprintf("%stcp(%s)%s", auth, databaseUrl.Host, db)
+	dbDsn := fmt.Sprintf("%vtcp(%v)%v", auth, databaseUrl.Host, db)
 	c, err = sqlx.Connect(databaseUrl.Scheme, dbDsn)
 
 	if err != nil {
